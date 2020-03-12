@@ -75,6 +75,7 @@ my_new_data %>%
 
 ## Create plots
 
+
 ### Plot of intensity for each stress type
 ```{r}
 my_new_data %>%
