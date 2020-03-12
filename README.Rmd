@@ -1,0 +1,104 @@
+# Programming Assignment 2
+
+## Load library
+```{r}
+library(tidyverse)
+```
+
+
+## Read data into R
+```{r}
+read_csv("data/data.csv")
+```
+
+
+## Assign to an object
+```{r}
+my_data <- read_csv("data/data.csv")
+```
+
+
+## Mean duration
+```{r}
+mean(my_data$durationV)
+```
+
+
+## Mean f0
+```{r}
+mean(my_data$f0)
+```
+
+
+## Mean intensity
+```{r}
+mean(my_data$int)
+```
+
+
+## Separate variable Info into different columns (word, stress)
+```{r}
+separate(data = my_data, col = info, into = c("word", "stress"), sep = "_")
+```
+
+
+## Assign it to an object
+```{r}
+my_new_data <- separate(data = my_data, col = info, into = c("word", "stress"), sep = "_")
+```
+
+
+## Means by lexical stress
+
+### Means of durationV for stress 1 and 2 
+```{r}
+my_new_data %>%
+  group_by(stress) %>%
+  summarize(mean_durationV = mean(durationV))
+```
+
+
+### Means of f0 for stress 1 and 2 
+```{r}
+my_new_data %>%
+  group_by(stress) %>%
+  summarize(mean_f0 = mean(f0))
+```
+### Means of int for stress 1 and 2 
+```{r}
+
+my_new_data %>%
+  group_by(stress) %>%
+  summarize(mean_int = mean(int))
+```
+
+
+## Create plots
+
+### Plot of intensity for each stress type
+```{r}
+my_new_data %>%
+  ggplot(., aes(x = stress, y = int, col = "red"))+
+  geom_point()
+```
+
+
+### Histogram of f0
+```{r}
+hist(my_new_data$f0, 
+     main="Histogram of f0", 
+     xlab="f0", 
+     ylab = "count",
+     border="black", 
+     col="blue",
+     xlim=c(90,115),
+     las=2, 
+     breaks=10)
+```
+
+### Point plot of intensity and f0
+```{r}
+plot(x = my_new_data$f0 , y = my_new_data$int, type = 'o', xlab = "f0", ylab = "intensity", col = "purple")
+```
+
+
